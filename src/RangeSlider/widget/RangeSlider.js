@@ -142,36 +142,33 @@ define([
                 }
                 this.$rangeInputNode.rangeslider(this._options);
 
-                if (!this._initialized) {
-                    // add some blank text to the fill and handle
-                    // needed when using label styling
-                    var fill = dojoQuery(".rangeslider__fill", this.rangeSliderNode);
-                    if (fill.length > 0) {
-                        dojoHtml.set(fill[0], "&nbsp;");
-                    }
-                  
-                    var handle = dojoQuery(".rangeslider__handle", this.rangeSliderNode);
-                  
-                    if (handle.length > 0) {
-                      if(this.showValue === "true" && this.absoluteValue === "true") {
-                        dojoHtml.set(handle[0], "<span>"+Math.abs(valu)+"</span>");
-                      } else if(this.showValue === "true" && this.absoluteValue === "false") {
-                        dojoHtml.set(handle[0], "<span>"+valu+"</span>");
-                      } else if(this.showValue === "false") {
-                        dojoHtml.set(handle[0], "<span></span>");
-                      }
-                    }
+                // add some blank text to the fill and handle
+                // needed when using label styling
+                var fill = dojoQuery(".rangeslider__fill", this.rangeSliderNode);
+                if (fill.length > 0) {
+                    dojoHtml.set(fill[0], "&nbsp;");
+                }
+
+                var handle = dojoQuery(".rangeslider__handle", this.rangeSliderNode);
+
+                if (handle.length > 0) {
+                  if(this.showValue === "true" && this.absoluteValue === "true") {
+                    dojoHtml.set(handle[0], "<span>"+Math.abs(valu)+"</span>");
+                  } else if(this.showValue === "true" && this.absoluteValue === "false") {
+                    dojoHtml.set(handle[0], "<span>"+valu+"</span>");
+                  } else if(this.showValue === "false") {
+                    dojoHtml.set(handle[0], "<span></span>");
+                  }
                 }
 
                 var _this = this;
                 return setTimeout(function () {
                     dojoProp.set(_this.rangeInputNode, {
                         min: min,
-                        max: max
+                        max: max,
+                        step: _this.step,
+                        value: valu
                     });
-                  
-                    _this.$rangeInputNode.val(valu).change();
-
                     _this.$rangeInputNode.rangeslider("update", true);
                 }, 10);
             } else {
